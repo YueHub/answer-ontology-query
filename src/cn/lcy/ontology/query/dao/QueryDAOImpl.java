@@ -45,7 +45,7 @@ public class QueryDAOImpl implements QueryDAOI {
     private QueryDAOImpl(){}
     
     public static QueryDAOI getInstance() {
-    	if(singleInstance == null) {
+    	if (singleInstance == null) {
     		synchronized (QueryDAOImpl.class) {
 				if(singleInstance == null) {
 					singleInstance = new QueryDAOImpl();
@@ -105,7 +105,7 @@ public class QueryDAOImpl implements QueryDAOI {
         ResultSet results = qexec.execSelect();
         ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(results);
         int numCols = resultSetRewindable.getResultVars().size();
-        while(resultSetRewindable.hasNext()) {
+        while (resultSetRewindable.hasNext()) {
         	QuerySolution querySolution = resultSetRewindable.next();
         	for (int col = 0; col < numCols;col++) {
 	        	String rVar = results.getResultVars().get(col);
@@ -132,7 +132,7 @@ public class QueryDAOImpl implements QueryDAOI {
         ResultSet results = qexec.execSelect();
         ResultSetRewindable resultSetRewindable = ResultSetFactory.makeRewindable(results);
         int numCols = resultSetRewindable.getResultVars().size();
-        while(resultSetRewindable.hasNext()) {
+        while (resultSetRewindable.hasNext()) {
         	QuerySolution querySolution = resultSetRewindable.next();
         	for (int col = 0; col < numCols;col++) {
 	        	String rVar = results.getResultVars().get(col);
@@ -155,15 +155,15 @@ public class QueryDAOImpl implements QueryDAOI {
         while(stmtIter.hasNext()) {
         	Statement statement = stmtIter.next();
         	String subjectName = null;
-        	if(statement.getSubject() != null && statement.getSubject().getURI() != null) {
+        	if (statement.getSubject() != null && statement.getSubject().getURI() != null) {
         		String[] urlFields = statement.getSubject().getURI().split("#");
-            	if(urlFields.length > 1) {
+            	if (urlFields.length > 1) {
             		subjectName = urlFields[1];
             	} else {
             		subjectName =urlFields[0];
             	}
-            	if(subjectName != null) {
-            		if(subjectName.equals(subject)) {
+            	if (subjectName != null) {
+            		if (subjectName.equals(subject)) {
             			statements.add(statement);
             		}
             	}
@@ -179,10 +179,10 @@ public class QueryDAOImpl implements QueryDAOI {
 	public List<Statement> getStatementsByObject(String object) {
 		List<Statement> statements = new ArrayList<Statement>();
         StmtIterator stmtIter = model.listStatements();
-        while(stmtIter.hasNext()) {
+        while (stmtIter.hasNext()) {
         	Statement statement = stmtIter.next();
-        	if(statement.getObject().toString().split("#").length > 1) {
-        		if(statement.getObject().toString().split("#")[1].equals(object)) {
+        	if (statement.getObject().toString().split("#").length > 1) {
+        		if (statement.getObject().toString().split("#")[1].equals(object)) {
         			statements.add(statement);
         		}
         	}
@@ -212,7 +212,7 @@ public class QueryDAOImpl implements QueryDAOI {
                      String rVar = resultSet.getResultVars().get(col);
                      RDFNode obj = rBind.get(rVar);
                      String answerStr = FmtUtils.stringForRDFNode(obj);
-                     if(numCols > 1) {
+                     if (numCols > 1) {
                     	 Answer answer = new Answer();
                     	 answer.setType(AnswerTypeEnum.TABLE);
                     	 answer.setContent(answerStr);
@@ -241,7 +241,7 @@ public class QueryDAOImpl implements QueryDAOI {
     	String individualNameUrl = Config.pizzaNs + individualName;
     	Individual individual = model.getIndividual(individualNameUrl);
     	StmtIterator properties = null;
-    	if(individual != null) {
+    	if (individual != null) {
     		properties = individual.listProperties(); // 列出该实体所有的属性
     	}
     	return properties;
@@ -259,13 +259,13 @@ public class QueryDAOImpl implements QueryDAOI {
     	// 列出该实体所有的属性
     	StmtIterator properties = individual.listProperties();
     	List<Statement> mainProperties = new ArrayList<Statement>();
-    	while(properties.hasNext()) {
+    	while (properties.hasNext()) {
     		Statement propertyStatement = properties.next();
     		RDFNode objectNode = propertyStatement.getObject();
     		// 对象属性 返回
-    		if(!objectNode.isLiteral()) {
+    		if (!objectNode.isLiteral()) {
     			mainProperties.add(propertyStatement);
-    		} else if(objectNode.toString().length() < 30){
+    		} else if (objectNode.toString().length() < 30){
     			mainProperties.add(propertyStatement);
     		}
     	}

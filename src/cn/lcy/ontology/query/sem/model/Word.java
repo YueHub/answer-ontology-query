@@ -106,8 +106,8 @@ public class Word implements java.io.Serializable {
 	 * 激活同名实体
 	 */
 	public void active(PolysemantNamedEntity polysemantNamedEntity) {
-		for(PolysemantNamedEntity polysemantNamedEntityIter : polysemantNamedEntities) {
-			if(polysemantNamedEntityIter.getUUID().equals(polysemantNamedEntity.getUUID())) {
+		for (PolysemantNamedEntity polysemantNamedEntityIter : polysemantNamedEntities) {
+			if (polysemantNamedEntityIter.getUUID().equals(polysemantNamedEntity.getUUID())) {
 				// 找到该同名实体并激活
 				polysemantNamedEntityIter.setActive(true);
 			} else {
@@ -122,8 +122,8 @@ public class Word implements java.io.Serializable {
 	 */
 	public PolysemantNamedEntity getActiveEntity() {
 		PolysemantNamedEntity polysemantNamedEntityRet = null;
-		for(PolysemantNamedEntity polysemantNamedEntity : polysemantNamedEntities) {
-			if(polysemantNamedEntity.isActive()) {
+		for (PolysemantNamedEntity polysemantNamedEntity : polysemantNamedEntities) {
+			if (polysemantNamedEntity.isActive()) {
 				polysemantNamedEntityRet = polysemantNamedEntity;
 			}
 		}

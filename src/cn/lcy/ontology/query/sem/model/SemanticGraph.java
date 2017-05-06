@@ -13,12 +13,12 @@ public class SemanticGraph extends DirectedMultiGraph<SemanticGraphVertex, Seman
 		StringBuilder s = new StringBuilder();
 	    s.append("{\n");
 	    s.append("Graph:\n");
-	    for(SemanticGraphVertex sourceVertex : this.getAllVertices()) {
-	    	for(SemanticGraphEdge edge : this.getOutgoingEdges(sourceVertex)) {
+	    for (SemanticGraphVertex sourceVertex : this.getAllVertices()) {
+	    	for (SemanticGraphEdge edge : this.getOutgoingEdges(sourceVertex)) {
 	    		SemanticGraphVertex destVertex = new SemanticGraphVertex();
-	    		  for(SemanticGraphVertex v : this.getAllVertices()) {
-	    			  for(SemanticGraphEdge e: this.getIncomingEdges(v)) {
-	    				  if(e.equals(edge)) {
+	    		  for (SemanticGraphVertex v : this.getAllVertices()) {
+	    			  for (SemanticGraphEdge e: this.getIncomingEdges(v)) {
+	    				  if (e.equals(edge)) {
 	    					  destVertex = v;
 	    				  }
 	    			  }

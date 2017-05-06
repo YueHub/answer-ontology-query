@@ -7,4 +7,5 @@
 ## 原理
 整体框架图:
 ![image](https://github.com/YueHub/answer-ontology-query/blob/master/docs/本体查询模块.png)
+
 待续...
