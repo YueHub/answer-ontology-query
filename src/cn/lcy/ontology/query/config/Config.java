@@ -1,6 +1,8 @@
 package cn.lcy.ontology.query.config;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 import org.apache.jena.ontology.OntModel;
@@ -37,16 +39,7 @@ public class Config {
 	 * 本体文件路径
 	 */
 	public static String ontologyPath;
-	
-	/**
-	 * 实体词典路径
-	 */
-	public static String individualDictPath;
-	
-	/**
-	 * 图片保存地址
-	 */
-	public static String picSavePath;
+
 	
 	public static OntModel model;
 	
@@ -62,21 +55,23 @@ public class Config {
 			e.printStackTrace();
 		}
 		pizzaNs = properties.getProperty("pizzaNs").toString();
-		
-		rootPath = properties.getProperty("rootPath").toString(); 
-		ontologyPath = rootPath + properties.get("ontologyPath").toString();
-		individualDictPath = rootPath + properties.get("individualDictPath").toString();
-		picSavePath = rootPath + properties.getProperty("picSavePath");
-		model = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
-		loadModel = FileManager.get().readModel(model, Config.ontologyPath);
+		rootPath = properties.getProperty("rootPath").toString();
+		if (".".equals(rootPath)) {	// 使用默认本体、实体词典等数据
+            try {
+                ontologyPath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath().toString() + "data/Ontologies/Answer_Ontology_V2.owl";
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+			ontologyPath = rootPath + properties.get("ontologyPath").toString();
+		}
+        model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        loadModel = FileManager.get().readModel(model, ontologyPath);
 	}
 	
 	/**
 	 * 配置类 不需要生成实例
 	 */
 	private Config() {}
-	
-	
-	
 
 }

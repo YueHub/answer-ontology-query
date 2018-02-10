@@ -426,7 +426,7 @@ public class QueryServiceImpl implements QueryServiceI {
 	
 	 /**
      * 根据断言集合多次构建查询语句   多次构造 多次调用 每次调用的时候传入一个 二个 ...断言
-     * @param myStatements
+     * @param answerStatements
      * @return
      */
     public List<String> createSparqls(List<AnswerStatement> answerStatements) {
