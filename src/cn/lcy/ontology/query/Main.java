@@ -11,14 +11,9 @@ public class Main {
 
   public static void main(String[] args) {
     QueryServiceI queryService = QueryServiceImpl.getInstance();
-    String prefix = "prefix mymo: <" + Config.pizzaNs + ">\n" +
-      "prefix rdfs: <" + RDFS.getURI() + ">\n" +
-      "prefix owl: <" + OWL.getURI() + ">\n";
-    String QL = "SELECT ?导演姓名 WHERE { mymo:美人鱼  mymo:有导演  ?导演.\n"
-      + "?导演  mymo:有姓名  ?导演姓名.}";
-    String SPARQL = prefix + QL;
-    QueryResult queryResult = queryService.queryOntology(SPARQL);
-    System.out.println(queryResult);
+    String query = "SELECT ?导演姓名 WHERE { mymo:489e1493d8b34285b5a24017e574c0f5 mymo:有导演  ?导演.\n"
+      + "?导演  mymo:有中文名  ?导演姓名.}";
+    QueryResult queryResult = queryService.queryOntology(query);
   }
 
 }

@@ -199,6 +199,7 @@ public class QueryDAOImpl implements QueryDAOI {
                          "prefix owl: <" + OWL.getURI() + ">\n";
 
          Query query = QueryFactory.create( prefix + sparql );
+
          QueryExecution qexec = QueryExecutionFactory.create( query, model );
          QueryResult result = new QueryResult();
          try {

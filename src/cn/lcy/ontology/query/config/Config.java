@@ -24,6 +24,11 @@ public class Config {
 	 * 配置
 	 */
 	public static Properties properties;
+
+    /**
+     * 是否使用默认本体数据
+     */
+	public static String defaultDataSource;
 	
 	/**
 	 * 本体标识
@@ -54,17 +59,19 @@ public class Config {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		pizzaNs = properties.getProperty("pizzaNs").toString();
-		rootPath = properties.getProperty("rootPath").toString();
-		if (".".equals(rootPath)) {	// 使用默认本体、实体词典等数据
+        pizzaNs = properties.getProperty("pizzaNs").toString();
+        defaultDataSource = properties.getProperty("defaultDataSource").toString();
+
+		if ("true".equals(defaultDataSource)) { // 使用默认数据源
             try {
                 ontologyPath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath().toString() + "data/Ontologies/Answer_Ontology_V2.owl";
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
         } else {
-			ontologyPath = rootPath + properties.get("ontologyPath").toString();
-		}
+            rootPath = properties.getProperty("rootPath").toString();
+            ontologyPath = rootPath + properties.get("ontologyPath").toString();
+        }
         model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         loadModel = FileManager.get().readModel(model, ontologyPath);
 	}
